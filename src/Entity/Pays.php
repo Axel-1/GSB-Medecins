@@ -10,21 +10,28 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PaysRepository::class)]
-#[ApiResource(normalizationContext: ['groups' => ['pays']])]
+#[ApiResource(
+    collectionOperations: [
+        'get',
+    ],
+    itemOperations: [
+        'get' => ['normalization_context' => ['groups' => ['pays:read']]],
+    ]
+)]
 class Pays
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups("pays")]
+    #[Groups(["pays:read", "medecin:read"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups("pays")]
+    #[Groups(["pays:read", "medecin:read"])]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Departement::class, orphanRemoval: true)]
-    #[Groups("pays")]
+    #[Groups("pays:read")]
     private $departements;
 
     public function __construct()

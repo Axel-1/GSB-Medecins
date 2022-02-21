@@ -8,37 +8,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [
+        'get',
+    ],
+    itemOperations: [
+        'get' => ['normalization_context' => ['groups' => ['medecin:read']]],
+    ],
+)]
 class Medecin
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["departement"])]
+    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement"])]
+    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement"])]
+    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement"])]
+    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
     private $adresse;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement"])]
+    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
     private $tel;
 
     #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'medecins')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(["medecin:read"])]
     private $departement;
 
     #[ORM\ManyToOne(targetEntity: SpecialiteComplementaire::class, inversedBy: 'medecins')]
-    #[Groups(["departement"])]
+    #[Groups(["medecin:read"])]
     private $specialiteComplementaire;
 
     public function getId(): ?int
