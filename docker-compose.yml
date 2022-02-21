@@ -1,0 +1,24 @@
+services:
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: aperture
+      MARIADB_DATABASE: GSB-Medecins
+    volumes:
+      - ./.docker/mariadb/mysql:/var/lib/mysql
+  php-symfony:
+    container_name: php-symfony
+    build:
+      context: ./.docker/php-symfony
+    depends_on:
+      - mariadb
+    links:
+      - mariadb
+    tty: true
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/var/www/GSB-Medecins
