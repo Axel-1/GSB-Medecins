@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PaysRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'get',
+        'get'=> ['normalization_context' => ['groups' => ['paysCollection:read']]],
     ],
     itemOperations: [
         'get' => ['normalization_context' => ['groups' => ['pays:read']]],
@@ -23,15 +23,15 @@ class Pays
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["pays:read", "medecin:read"])]
+    #[Groups(["pays:read", "medecin:read", "paysCollection:read"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["pays:read", "medecin:read"])]
+    #[Groups(["pays:read", "medecin:read", "paysCollection:read"])]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Departement::class, orphanRemoval: true)]
-    #[Groups("pays:read")]
+    #[Groups(["pays:read", "paysCollection:read"])]
     private $departements;
 
     public function __construct()

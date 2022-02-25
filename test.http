@@ -1,4 +1,4 @@
-GET http://localhost:8000/api/departements?page=1
+GET http://localhost:8000/api/medecins
 Accept: application/json
 
 ###
