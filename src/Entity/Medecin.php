@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 #[ApiResource(
     collectionOperations: [
-        'get',
+        'get' => ['normalization_context' => ['groups' => ['medecins:read']]],
     ],
     itemOperations: [
         'get' => ['normalization_context' => ['groups' => ['medecin:read']]],
@@ -21,23 +21,23 @@ class Medecin
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read", "departements:read", "specialite_complementaires:read"])]
+    #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read", "departements:read", "specialite_complementaires:read"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
+    #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
+    #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
+    #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
     private $adresse;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(["departement:read", "medecin:read", "specialite_complementaire:read"])]
+    #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
     private $tel;
 
     #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'medecins')]
