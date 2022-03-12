@@ -6,12 +6,14 @@ use App\Entity\Pays;
 use App\Form\PaysType;
 use App\Repository\PaysRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/pays')]
+#[IsGranted('ROLE_ADMIN')]
 class PaysController extends AbstractController
 {
     #[Route('/', name: 'pays_index', methods: ['GET'])]

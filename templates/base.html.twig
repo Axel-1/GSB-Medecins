@@ -14,6 +14,13 @@
         {% endblock %}
     </head>
     <body>
+        <a href="{{ path('app_index') }}">Home</a>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p>Username: {{ app.user.username }}</p>
+            <a href="{{ path('app_logout') }}">Logout</a>
+        {% endif %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

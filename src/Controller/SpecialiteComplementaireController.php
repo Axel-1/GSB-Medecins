@@ -6,12 +6,14 @@ use App\Entity\SpecialiteComplementaire;
 use App\Form\SpecialiteComplementaireType;
 use App\Repository\SpecialiteComplementaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/specialite_complementaires')]
+#[IsGranted('ROLE_ADMIN')]
 class SpecialiteComplementaireController extends AbstractController
 {
     #[Route('/', name: 'app_specialite_complementaire_index', methods: ['GET'])]
