@@ -7,6 +7,7 @@ use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
@@ -101,5 +102,10 @@ class Departement
         $this->pays = $pays;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getNom();
     }
 }
