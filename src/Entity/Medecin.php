@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MedecinRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MedecinRepository::class)]
 #[ApiResource(
@@ -26,23 +27,28 @@ class Medecin
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $prenom;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $adresse;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["departement:read", "medecin:read", "medecins:read", "specialite_complementaire:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $tel;
 
     #[ORM\ManyToOne(targetEntity: Departement::class, inversedBy: 'medecins')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["medecin:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $departement;
 
     #[ORM\ManyToOne(targetEntity: SpecialiteComplementaire::class, inversedBy: 'medecins')]
@@ -59,7 +65,7 @@ class Medecin
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -71,7 +77,7 @@ class Medecin
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
 
@@ -83,7 +89,7 @@ class Medecin
         return $this->adresse;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setAdresse(?string $adresse): self
     {
         $this->adresse = $adresse;
 
@@ -95,7 +101,7 @@ class Medecin
         return $this->tel;
     }
 
-    public function setTel(string $tel): self
+    public function setTel(?string $tel): self
     {
         $this->tel = $tel;
 

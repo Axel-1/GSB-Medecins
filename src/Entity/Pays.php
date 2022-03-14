@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PaysRepository::class)]
 #[ApiResource(
@@ -28,6 +29,7 @@ class Pays
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["pays:read", "medecin:read", "paysCollection:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Departement::class, orphanRemoval: true)]
@@ -49,7 +51,7 @@ class Pays
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 

@@ -7,8 +7,8 @@ use App\Repository\DepartementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DepartementRepository::class)]
 #[ApiResource(
@@ -29,6 +29,7 @@ class Departement
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["pays:read", "departement:read", "medecin:read", "paysCollection:read", "departements:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $nom;
 
     #[ORM\OneToMany(mappedBy: 'departement', targetEntity: Medecin::class, orphanRemoval: true)]
@@ -38,6 +39,7 @@ class Departement
     #[ORM\ManyToOne(targetEntity: Pays::class, inversedBy: 'departements')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["medecin:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $pays;
 
     public function __construct()
@@ -55,7 +57,7 @@ class Departement
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SpecialiteComplementaireRepository::class)]
 #[ApiResource(
@@ -28,6 +29,7 @@ class SpecialiteComplementaire
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(["departement", "medecin:read", "specialite_complementaire:read", "specialite_complementaires:read"])]
+    #[Assert\NotBlank(message: "Cette valeur ne doit pas être vide.")]
     private $libelle;
 
     #[ORM\OneToMany(mappedBy: 'specialiteComplementaire', targetEntity: Medecin::class)]
@@ -49,7 +51,7 @@ class SpecialiteComplementaire
         return $this->libelle;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
 
