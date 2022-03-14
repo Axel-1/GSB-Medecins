@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted('ROLE_ADMIN')]
 class SpecialiteComplementaireController extends AbstractController
 {
-    #[Route('/', name: 'app_specialite_complementaire_index', methods: ['GET'])]
+    #[Route('/', name: 'specialite_complementaire_index', methods: ['GET'])]
     public function index(SpecialiteComplementaireRepository $specialiteComplementaireRepository): Response
     {
         return $this->render('specialite_complementaire/index.html.twig', [
@@ -24,7 +24,7 @@ class SpecialiteComplementaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_specialite_complementaire_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'specialite_complementaire_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $specialiteComplementaire = new SpecialiteComplementaire();
@@ -35,7 +35,7 @@ class SpecialiteComplementaireController extends AbstractController
             $entityManager->persist($specialiteComplementaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('specialite_complementaire/new.html.twig', [
@@ -44,7 +44,7 @@ class SpecialiteComplementaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_specialite_complementaire_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'specialite_complementaire_show', methods: ['GET'])]
     public function show(SpecialiteComplementaire $specialiteComplementaire): Response
     {
         return $this->render('specialite_complementaire/show.html.twig', [
@@ -52,7 +52,7 @@ class SpecialiteComplementaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_specialite_complementaire_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'specialite_complementaire_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, SpecialiteComplementaire $specialiteComplementaire, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SpecialiteComplementaireType::class, $specialiteComplementaire);
@@ -61,7 +61,7 @@ class SpecialiteComplementaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('specialite_complementaire/edit.html.twig', [
@@ -70,7 +70,7 @@ class SpecialiteComplementaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_specialite_complementaire_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'specialite_complementaire_delete', methods: ['POST'])]
     public function delete(Request $request, SpecialiteComplementaire $specialiteComplementaire, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$specialiteComplementaire->getId(), $request->request->get('_token'))) {
@@ -78,6 +78,6 @@ class SpecialiteComplementaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('specialite_complementaire_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,26 +1,102 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🧬</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <a href="{{ path('app_index') }}">Home</a>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
+    {% endblock %}
+</head>
+<body>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{{ path('app_index') }}">
+        <img alt="GSB" height="25" src={{ asset('img/gsb-dark.png') }}>
+    </a>
+    <button aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler position-absolute d-md-none collapsed" data-bs-target="#sidebarMenu"
+            data-bs-toggle="collapse"
+            type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <form action="" class="d-inline w-100" method="get">
+        <input aria-label="Search" class="form-control form-control-dark w-100" disabled
+               placeholder="" type="text">
+    </form>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <ul class="navbar-nav ps-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="#">Utilisateur :
+                    <b>{{ app.user.username }}</b></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <form method="get" action="{{ path('app_logout') }}">
+                    <input class="btn btn-outline-danger" type="submit" value="Se déconnecter"/>
+                </form>
+            </li>
+        </ul>
+    {% endif %}
+</header>
 
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <p>Username: {{ app.user.username }}</p>
-            <a href="{{ path('app_logout') }}">Logout</a>
-        {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" id="sidebarMenu">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_index') }}">
+                            <i class="bi bi-house bi-sb me-1"></i>
+                            Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('medecin_index') }}">
+                            <i class="bi bi-file-earmark-medical bi-sb me-1"></i>
+                            Médecins
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('pays_index') }}">
+                            <i class="bi bi-globe2 bi-sb me-1"></i>
+                            Pays
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('departement_index') }}">
+                            <i class="bi bi-geo-alt bi-sb me-1"></i>
+                            Départements
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('specialite_complementaire_index') }}">
+                            <i class="bi bi-list-ul bi-sb me-1"></i>
+                            Spécialités
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        {% block body %}{% endblock %}
-    </body>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            {% block body %}{% endblock %}
+        </main>
+    </div>
+</div>
+</body>
 </html>

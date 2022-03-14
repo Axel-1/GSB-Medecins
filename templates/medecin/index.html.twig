@@ -3,18 +3,27 @@
 {% block title %}Medecin index{% endblock %}
 
 {% block body %}
-    <h1>Medecin index</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Médecins</h1>
+        <div class="container p-0 m-0">
+            <div class="row justify-content-end p-0 m-0">
+                <div class="col-auto me-0 pe-0">
+                    <a class="btn btn-success" href="{{ path('medecin_new') }}">Nouveau</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Adresse</th>
-                <th>Tel</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Adresse</th>
+            <th scope="col">Tel</th>
+            <th scope="col">Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for medecin in medecins %}
@@ -23,19 +32,19 @@
                 <td>{{ medecin.nom }}</td>
                 <td>{{ medecin.prenom }}</td>
                 <td>{{ medecin.adresse }}</td>
-                <td>{{ medecin.tel }}</td>
+                <td><a href="tel:{{ medecin.tel }}">{{ medecin.tel }}</a></td>
                 <td>
-                    <a href="{{ path('medecin_show', {'id': medecin.id}) }}">show</a>
-                    <a href="{{ path('medecin_edit', {'id': medecin.id}) }}">edit</a>
+                    <a class="btn btn-outline-primary"
+                       href="{{ path('medecin_show', {'id': medecin.id}) }}">Afficher</a>
+                    <a class="btn btn-outline-warning"
+                       href="{{ path('medecin_edit', {'id': medecin.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun médecin</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('medecin_new') }}">Create new</a>
 {% endblock %}

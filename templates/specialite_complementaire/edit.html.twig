@@ -3,11 +3,10 @@
 {% block title %}Edit SpecialiteComplementaire{% endblock %}
 
 {% block body %}
-    <h1>Edit SpecialiteComplementaire</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Spécialités / Modifier</h1>
+    </div>
 
-    {{ include('specialite_complementaire/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('specialite_complementaire/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('app_specialite_complementaire_index') }}">back to list</a>
-
-    {{ include('specialite_complementaire/_delete_form.html.twig') }}
 {% endblock %}

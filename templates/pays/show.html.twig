@@ -3,24 +3,25 @@
 {% block title %}Pays{% endblock %}
 
 {% block body %}
-    <h1>Pays</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Pays / Afficher</h1>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ pays.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ pays.nom }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ pays.nom }}</h5>
+                        <p class="card-subtitle">ID : {{ pays.id }}</p>
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-warning" href="{{ path('pays_edit', {'id': pays.id}) }}">Modifier</a>
+                        {{ include('pays/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('pays_index') }}">back to list</a>
-
-    <a href="{{ path('pays_edit', {'id': pays.id}) }}">edit</a>
-
-    {{ include('pays/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,15 +3,24 @@
 {% block title %}SpecialiteComplementaire index{% endblock %}
 
 {% block body %}
-    <h1>SpecialiteComplementaire index</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Spécialités</h1>
+        <div class="container p-0 m-0">
+            <div class="row justify-content-end p-0 m-0">
+                <div class="col-auto me-0 pe-0">
+                    <a class="btn btn-success" href="{{ path('specialite_complementaire_new') }}">Nouveau</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Libellé</th>
+            <th scope="col">Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for specialite_complementaire in specialite_complementaires %}
@@ -19,17 +28,17 @@
                 <td>{{ specialite_complementaire.id }}</td>
                 <td>{{ specialite_complementaire.libelle }}</td>
                 <td>
-                    <a href="{{ path('app_specialite_complementaire_show', {'id': specialite_complementaire.id}) }}">show</a>
-                    <a href="{{ path('app_specialite_complementaire_edit', {'id': specialite_complementaire.id}) }}">edit</a>
+                    <a class="btn btn-outline-primary"
+                       href="{{ path('specialite_complementaire_show', {'id': specialite_complementaire.id}) }}">Afficher</a>
+                    <a class="btn btn-outline-warning"
+                       href="{{ path('specialite_complementaire_edit', {'id': specialite_complementaire.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune spécialité complémentaire</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_specialite_complementaire_new') }}">Create new</a>
 {% endblock %}

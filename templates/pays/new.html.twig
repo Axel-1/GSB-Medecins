@@ -3,9 +3,10 @@
 {% block title %}New Pays{% endblock %}
 
 {% block body %}
-    <h1>Create new Pays</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Pays / Nouveau</h1>
+    </div>
 
     {{ include('pays/_form.html.twig') }}
 
-    <a href="{{ path('pays_index') }}">back to list</a>
 {% endblock %}
