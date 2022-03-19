@@ -9,3 +9,4 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /.docker/mariadb/mysql/
+/.docker/postgresql/data/

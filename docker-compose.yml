@@ -1,22 +1,21 @@
 services:
-  mariadb:
-    container_name: mariadb
-    image: mariadb:latest
+  postgres:
+    container_name: postgres
+    image: postgres:14
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MARIADB_ROOT_PASSWORD: aperture
-      MARIADB_DATABASE: GSB-Medecins
+      POSTGRES_PASSWORD: aperture
     volumes:
-      - ./.docker/mariadb/mysql:/var/lib/mysql
+      - ./.docker/postgresql/data:/var/lib/postgresql/data
   php-symfony:
     container_name: php-symfony
     build:
       context: ./.docker/php-symfony
     depends_on:
-      - mariadb
+      - postgres
     links:
-      - mariadb
+      - postgres
     tty: true
     ports:
       - 8000:8000

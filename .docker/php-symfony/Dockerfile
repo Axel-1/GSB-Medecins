@@ -4,7 +4,7 @@ RUN echo 'deb [trusted=yes] https://repo.symfony.com/apt/ /' | tee /etc/apt/sour
 
 RUN apt update \
     && apt install -y zlib1g-dev g++ git zip libzip-dev libicu-dev zip libpq-dev \
-    && docker-php-ext-install pdo pdo_mysql intl \
+    && docker-php-ext-install pdo pdo_pgsql intl \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip
 
