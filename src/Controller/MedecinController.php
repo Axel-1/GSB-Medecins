@@ -6,6 +6,7 @@ use App\Entity\Medecin;
 use App\Form\MedecinType;
 use App\Repository\MedecinRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,10 +18,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MedecinController extends AbstractController
 {
     #[Route('/', name: 'medecin_index', methods: ['GET'])]
-    public function index(MedecinRepository $medecinRepository): Response
+    public function index(Request $request, MedecinRepository $medecinRepository, LoggerInterface $logger): Response
     {
+        $name = $request->query->get('name');
         return $this->render('medecin/index.html.twig', [
-            'medecins' => $medecinRepository->findAll(),
+            'medecins' => $medecinRepository->findByNomOrPrenomContaining($name),
         ]);
     }
 

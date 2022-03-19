@@ -34,8 +34,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <form action="" class="d-inline w-100" method="get">
-        <input aria-label="Search" class="form-control form-control-dark w-100" disabled
-               placeholder="" type="text">
+        {% block searchBar %}{% endblock %}
     </form>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <ul class="navbar-nav ps-3">

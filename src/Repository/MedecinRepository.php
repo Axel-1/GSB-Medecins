@@ -19,6 +19,21 @@ class MedecinRepository extends ServiceEntityRepository
         parent::__construct($registry, Medecin::class);
     }
 
+    /**
+     * @return Medecin[] Returns an array of Medecin objects
+     */
+    public function findByNomOrPrenomContaining($value): array
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('lower(n.nom) LIKE lower(:val)')
+            ->orWhere('lower(n.prenom) LIKE lower(:val)')
+            ->setParameter('val', '%'.$value.'%')
+            ->orderBy('n.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Medecin[] Returns an array of Medecin objects
     //  */

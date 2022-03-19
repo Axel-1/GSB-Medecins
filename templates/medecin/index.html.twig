@@ -2,6 +2,11 @@
 
 {% block title %}Médecins{% endblock %}
 
+{% block searchBar %}
+    <input aria-label="Search" class="form-control form-control-dark w-100" id="search"
+           placeholder="Rechercher un médecin..." name="name" type="text">
+{% endblock %}
+
 {% block body %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Médecins</h1>
