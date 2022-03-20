@@ -1032,3 +1032,18 @@ CREATE SEQUENCE medecin_id_seq INCREMENT BY 1 MINVALUE 1 START 1001;
 CREATE SEQUENCE pays_id_seq INCREMENT BY 1 MINVALUE 1 START 3;
 CREATE SEQUENCE specialite_complementaire_id_seq INCREMENT BY 1 MINVALUE 1 START 9;
 CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 3;
+
+create function convert_to_intl_phone() returns trigger
+    language plpgsql
+as
+$$
+BEGIN
+    IF NOT starts_with(NEW.tel, '+') then
+        NEW.tel := concat('+33', ltrim(NEW.tel, '0'));
+    END IF;
+    RETURN NEW;
+end
+$$;
+
+CREATE TRIGGER convert_to_intl_phone BEFORE INSERT OR UPDATE ON medecin
+    FOR EACH ROW EXECUTE FUNCTION convert_to_intl_phone();
